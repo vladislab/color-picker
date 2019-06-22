@@ -24,6 +24,9 @@
   margin: 0 10px;
   display: inline-block;
 }
+.slider-container span {
+  font-weight: 300;
+}
 
 .rc-slider-track {
   background: transparent;

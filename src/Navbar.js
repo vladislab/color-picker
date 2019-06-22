@@ -31,7 +31,7 @@ export default class Navbar extends Component {
           <a href="#">ColorPicker</a>
         </div>
         <div className="slider-container">
-          <span>Level: {level} </span>
+          <span>Brightness: {level} </span>
           <div className="slider">
             <Slider
               defaultValue={level}
