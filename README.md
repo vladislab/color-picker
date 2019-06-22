@@ -1,3 +1,9 @@
+## Color Picker
+
+**Used APIs/Libraries**
+
+**NOTE: Flag Emojis are not supported by Windows**
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
