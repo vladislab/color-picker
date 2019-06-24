@@ -19,7 +19,7 @@ export default {
     justifyContent: "space-between",
     color: "white",
     alignItems: "center",
-    color: "white",
+
     "& a": {
       textDecoration: "none"
     }
