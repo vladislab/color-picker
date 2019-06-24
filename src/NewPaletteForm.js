@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import className from "classnames";
+import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -13,9 +13,12 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { ChromePicker } from "react-color";
 import Button from "@material-ui/core/Button";
+import DraggableColorBox from "./DraggableColorBox";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+
 const drawerWidth = 400;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = theme => ({
   root: {
     display: "flex"
   },
@@ -55,12 +58,13 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(0),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    marginLeft: -drawerWidth
+    marginLeft: -drawerWidth,
+    height: "calc(100vh - 64px)"
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
@@ -69,93 +73,154 @@ const useStyles = makeStyles(theme => ({
     }),
     marginLeft: 0
   }
-}));
+});
 
-export default function NewPaletteForm() {
-  const classes = useStyles();
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
-  function handleDrawerOpen() {
-    setOpen(true);
+class NewPaletteForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: true,
+      currentColor: "pink",
+      colors: [],
+      newName: ""
+    };
   }
 
-  function handleDrawerClose() {
-    setOpen(false);
+  componentDidMount() {
+    // custom rule will have name 'isPasswordMatch'
+    ValidatorForm.addValidationRule("isColorNameUnique", value => {
+      return this.state.colors.every(
+        ({ name }) => name.toLowerCase() !== value.toLowerCase()
+      );
+    });
+    ValidatorForm.addValidationRule("isColorUnique", value => {
+      return this.state.colors.every(
+        ({ color }) => color !== this.state.currentColor
+      );
+    });
   }
 
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Create New Palette
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </div>
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
+  };
 
-        <Divider />
-        <Typography variant="h4">Design Your Palette</Typography>
+  handleDrawerClose = () => {
+    this.setState({ open: false });
+  };
 
-        <div>
-          <Button variant="contained" color="secondary">
-            Clear Palette
-          </Button>
-          <Button variant="contained" color="primary">
-            Random Color
-          </Button>
-        </div>
+  updateCurrentColor = newColor => {
+    this.setState({ currentColor: newColor.hex });
+  };
 
-        <ChromePicker
-          color="purple"
-          onChangeComplete={newColor => {
-            console.log(newColor);
+  addNewColor = () => {
+    const newColor = {
+      color: this.state.currentColor,
+      name: this.state.newName
+    };
+    this.setState({ colors: [...this.state.colors, newColor], newName: "" });
+  };
+  handleChange = evt => {
+    this.setState({ newName: evt.target.value });
+  };
+
+  render() {
+    const { classes, theme } = this.props;
+    const { open } = this.state;
+
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={className(classes.appBar, {
+            [classes.appBarShift]: open
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerOpen}
+              edge="start"
+              className={className(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap>
+              Create New Palette
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper
           }}
-        />
-        <Button variant="contained" color="default">
-          Add Color
-        </Button>
-      </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open
-        })}
-      >
-        <div className={classes.drawerHeader} />
-      </main>
-    </div>
-  );
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={this.handleDrawerClose}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </div>
+
+          <Divider />
+          <Typography variant="h4">Design Your Palette</Typography>
+
+          <div>
+            <Button variant="contained" color="secondary">
+              Clear Palette
+            </Button>
+            <Button variant="contained" color="primary">
+              Random Color
+            </Button>
+          </div>
+
+          <ChromePicker
+            color={this.state.currentColor}
+            onChange={this.updateCurrentColor}
+          />
+          <ValidatorForm onSubmit={this.addNewColor}>
+            <TextValidator
+              label="New Color Name"
+              value={this.state.newName}
+              onChange={this.handleChange}
+              validators={["required", "isColorNameUnique", "isColorUnique"]}
+              errorMessages={[
+                "Enter a color name",
+                "Name already exists",
+                "Color is already used"
+              ]}
+            />
+            <Button
+              variant="contained"
+              type="submit"
+              color="default"
+              style={{ backgroundColor: this.state.currentColor }}
+            >
+              Add Color
+            </Button>
+          </ValidatorForm>
+        </Drawer>
+        <main
+          className={className(classes.content, {
+            [classes.contentShift]: open
+          })}
+        >
+          <div className={classes.drawerHeader} />
+
+          {this.state.colors.map(color => (
+            <DraggableColorBox color={color.color} name={color.name} />
+          ))}
+        </main>
+      </div>
+    );
+  }
 }
+export default withStyles(useStyles, { withTheme: true })(NewPaletteForm);
