@@ -6,6 +6,7 @@ import seedColors from "./seedColors";
 import SingleColorPalette from "./SingleColorPalete";
 import { generatePalette } from "./colorHelpers";
 import "./App.css";
+import NewPaletteForm from "./NewPaletteForm";
 
 class App extends Component {
   findPalette = id => {
@@ -16,6 +17,7 @@ class App extends Component {
   render() {
     return (
       <Switch>
+        <Route exact path="/palette/new" render={() => <NewPaletteForm />} />
         <Route
           exact
           path="/"
