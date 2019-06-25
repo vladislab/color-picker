@@ -123,6 +123,17 @@ class NewPaletteForm extends Component {
     this.setState({ newName: evt.target.value });
   };
 
+  handleSubmit = () => {
+    const newName = "New Palette";
+    const newPalette = {
+      paletteName: newName,
+      id: newName.toLocaleLowerCase().replace(/ /g, "-"),
+      colors: this.state.colors
+    };
+    this.props.savePalette(newPalette);
+    this.props.history.push("/");
+  };
+
   render() {
     const { classes, theme } = this.props;
     const { open } = this.state;
@@ -149,6 +160,13 @@ class NewPaletteForm extends Component {
             <Typography variant="h6" noWrap>
               Create New Palette
             </Typography>
+            <Button
+              variant="contained"
+              color="default"
+              onClick={this.handleSubmit}
+            >
+              Save Palette
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer
