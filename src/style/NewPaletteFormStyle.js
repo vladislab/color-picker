@@ -20,6 +20,7 @@ const styles = theme => ({
     justifyContent: "center"
   },
   drawerHeader: {
+    width: "100%",
     display: "flex",
     alignItems: "center",
     padding: "0 8px",
