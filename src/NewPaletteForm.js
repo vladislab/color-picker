@@ -139,7 +139,11 @@ class NewPaletteForm extends Component {
     this.props.savePalette(newPalette);
     this.props.history.push("/");
   };
-
+  handleDelete = colorName => {
+    this.setState({
+      colors: this.state.colors.filter(color => color.name !== colorName)
+    });
+  };
   render() {
     const { classes, theme } = this.props;
     const { open } = this.state;
@@ -166,7 +170,7 @@ class NewPaletteForm extends Component {
             <Typography variant="h6" noWrap>
               Create New Palette
             </Typography>
-            <ValidatorForm onSubmit={this.handleSubmit}>
+            <ValidatorForm onSubmit={this.handleSubmit} instantValidate={false}>
               <TextValidator
                 label="Palette Name"
                 name="newPaletteName"
@@ -216,7 +220,7 @@ class NewPaletteForm extends Component {
             color={this.state.currentColor}
             onChange={this.updateCurrentColor}
           />
-          <ValidatorForm onSubmit={this.addNewColor}>
+          <ValidatorForm onSubmit={this.addNewColor} instantValidate={false}>
             <TextValidator
               label="New Color Name"
               name="newColorName"
@@ -247,7 +251,12 @@ class NewPaletteForm extends Component {
           <div className={classes.drawerHeader} />
 
           {this.state.colors.map(color => (
-            <DraggableColorBox color={color.color} name={color.name} />
+            <DraggableColorBox
+              key={color.name}
+              color={color.color}
+              name={color.name}
+              handleDelete={() => this.handleDelete(color.name)}
+            />
           ))}
         </main>
       </div>
