@@ -18,6 +18,8 @@ export default {
     justifyContent: "center",
     overflow: "scroll",
     backgroundColor: "#330055",
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
     /* background by SVGBackgrounds.com */
     backgroundImage: `url(${bg})`
   },

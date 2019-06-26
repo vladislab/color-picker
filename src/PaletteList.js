@@ -39,7 +39,8 @@ class PaletteList extends Component {
     this.closeDeleteDialog();
   };
   render() {
-    const { palettes, classes } = this.props;
+    const { palettes, classes, paletteName } = this.props;
+
     return (
       <div className={classes.root}>
         <div className={classes.container}>
@@ -59,7 +60,7 @@ class PaletteList extends Component {
                   id={palette.id}
                   key={palette.id}
                   {...palette}
-                  handleClick={() => this.gotoPalette(palette.id)}
+                  handleClick={this.gotoPalette}
                   handleDelete={this.openDeleteDialog}
                 />
               </CSSTransition>

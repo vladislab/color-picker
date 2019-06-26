@@ -1,15 +1,16 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import DeleteForeverRoundedIcon from "@material-ui/icons/DeleteForeverRounded";
 import { withStyles } from "@material-ui/styles";
 import styles from "./style/MiniPaletteStyle";
 
-class MiniPalette extends React.Component {
+class MiniPalette extends PureComponent {
   deletePalette = e => {
     e.stopPropagation();
     this.props.handleDelete(this.props.id);
   };
   render() {
-    const { classes, paletteName, emoji, colors } = this.props;
+    const { classes, paletteName, emoji, colors, id } = this.props;
+    console.log(paletteName);
     const miniColorBoxes = colors.map(color => (
       <div
         className={classes.miniColor}
@@ -18,7 +19,7 @@ class MiniPalette extends React.Component {
       />
     ));
     return (
-      <div className={classes.root} onClick={this.props.handleClick}>
+      <div className={classes.root} onClick={() => this.props.handleClick(id)}>
         <DeleteForeverRoundedIcon
           className={classes.deleteIcon}
           style={{ transition: "all 0.3s ease-in-out" }}
