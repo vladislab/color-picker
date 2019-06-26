@@ -4,16 +4,12 @@ import { withStyles } from "@material-ui/styles";
 import styles from "./style/MiniPaletteStyle";
 
 class MiniPalette extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   deletePalette = e => {
     e.stopPropagation();
     this.props.handleDelete(this.props.id);
   };
   render() {
-    const { classes, paletteName, emoji, colors, id } = this.props;
+    const { classes, paletteName, emoji, colors } = this.props;
     const miniColorBoxes = colors.map(color => (
       <div
         className={classes.miniColor}

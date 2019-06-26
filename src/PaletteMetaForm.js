@@ -42,7 +42,7 @@ export default class PaletteMetaForm extends Component {
   };
   render() {
     const { newPaletteName, stage } = this.state;
-    const { hideForm, handleSubmit } = this.props;
+    const { hideForm } = this.props;
     return (
       <div>
         <Dialog open={stage === "openEmoji"} onClose={hideForm}>
@@ -53,7 +53,6 @@ export default class PaletteMetaForm extends Component {
         </Dialog>
         <Dialog
           open={stage === "openPaletteName"}
-          onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
           onClose={hideForm}
         >
