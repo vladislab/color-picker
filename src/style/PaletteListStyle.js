@@ -16,10 +16,8 @@ export default {
     display: "flex",
     alignItems: "flex-start",
     justifyContent: "center",
-    overflow: "auto",
+    overflow: "scroll",
     backgroundColor: "#330055",
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
     /* background by SVGBackgrounds.com */
     backgroundImage: `url(${bg})`
   },
@@ -34,6 +32,9 @@ export default {
     flexWrap: "wrap",
     [sizes.down("xl")]: {
       width: "70%"
+    },
+    [sizes.down("xs")]: {
+      width: "75%"
     }
   },
   nav: {
@@ -44,6 +45,7 @@ export default {
     alignItems: "center",
 
     "& a": {
+      color: "white",
       textDecoration: "none"
     }
   },
