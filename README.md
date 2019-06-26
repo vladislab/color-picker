@@ -2,13 +2,21 @@
 
 **Used APIs/Packages**
 https://material-ui.com/
+
 https://github.com/gka/chroma.js/
+
 https://github.com/missive/emoji-mart
+
 https://github.com/clauderic/react-sortable-hoc
+
 https://www.npmjs.com/package/react-form-validator-core
+
 https://cssinjs.org/?v=v10.0.0-alpha.20
+
 http://react-component.github.io/slider/
+
 https://casesandberg.github.io/react-color/
+
 https://www.npmjs.com/package/react-material-ui-form-validator
 
 **NOTE: Flag Emojis are not supported by Windows**
