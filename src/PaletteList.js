@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MiniPalette from "./MiniPalette";
-import { withStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -39,7 +39,7 @@ class PaletteList extends Component {
     this.closeDeleteDialog();
   };
   render() {
-    const { palettes, classes, paletteName } = this.props;
+    const { palettes, classes } = this.props;
 
     return (
       <div className={classes.root}>

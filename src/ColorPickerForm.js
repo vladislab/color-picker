@@ -43,7 +43,11 @@ class ColorPickerForm extends Component {
           onChange={this.updateCurrentColor}
           className={classes.picker}
         />
-        <ValidatorForm onSubmit={this.handleSubmit} instantValidate={false}>
+        <ValidatorForm
+          onSubmit={this.handleSubmit}
+          instantValidate={false}
+          ref="form"
+        >
           <TextValidator
             label="New Color Name"
             name="newColorName"
@@ -57,11 +61,13 @@ class ColorPickerForm extends Component {
               "Name already exists",
               "Color is already used"
             ]}
+            disabled={isPaletteFull}
             className={classes.colorNameInput}
           />
           <Button
             variant="contained"
             type="submit"
+            color="primary"
             style={{
               backgroundColor: isPaletteFull ? "grey" : currentColor
             }}

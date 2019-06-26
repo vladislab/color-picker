@@ -1,5 +1,5 @@
 import React from "react";
-import { withStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 import { SortableElement } from "react-sortable-hoc";
 import DeleteForeverRoundedIcon from "@material-ui/icons/DeleteForeverRounded";
 import styles from "./style/DraggableColorBoxStyle";

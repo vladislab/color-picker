@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import DeleteForeverRoundedIcon from "@material-ui/icons/DeleteForeverRounded";
-import { withStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 import styles from "./style/MiniPaletteStyle";
 
 class MiniPalette extends PureComponent {
